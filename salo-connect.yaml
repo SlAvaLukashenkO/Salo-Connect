@@ -1,0 +1,262 @@
+port: 7890
+socks-port: 7891
+mixed-port: 7890
+allow-lan: true
+bind-address: "*"
+mode: rule
+log-level: info
+ipv6: true
+external-controller: 127.0.0.1:9090
+secret: ""
+
+tun:
+  enable: true
+  stack: system
+  auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - any:53
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+  nameserver:
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.google/dns-query
+    - https://dns.yandex.ru/dns-query
+  fallback:
+    - tls://1.1.1.1:853
+    - tls://dns.yandex.ru:853
+    - https://dns.adguard.com/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: RU
+    ipcidr:
+      - 0.0.0.0/8
+      - 10.0.0.0/8
+      - 127.0.0.0/8
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+    - "+.yandex.ru"
+    - "+.yandex.net"
+    - "+.ya.ru"
+    - "+.vk.com"
+    - "+.vk.ru"
+    - "+.ok.ru"
+    - "+.ozon.ru"
+    - "+.wildberries.ru"
+    - "+.sberbank.ru"
+    - "+.mail.ru"
+    - "+.avito.ru"
+    - "+.gosuslugi.ru"
+
+proxies:
+  - name: "🇪🇺 #1 Яндекс — ⚡ LTE"
+    type: vless
+    server: yandex-1.ultima.foundation
+    port: 443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: api-maps.yandex.ru
+    client-fingerprint: edge
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+      short-id: a9725715bf4c62ff
+
+  - name: "🇪🇺 #2 Пятёрочка — ⚡ LTE"
+    type: vless
+    server: yandex-2.ultima.foundation
+    port: 443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: ads.x5.ru
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+
+  - name: "🇪🇺 #3 ВК Клауд — LTE"
+    type: vless
+    server: ru-cdn-cloud.ultima.foundation
+    port: 443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: m.vk.ru
+    client-fingerprint: qq
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+
+  - name: "🇷🇺 #4 Озон — LTE"
+    type: vless
+    server: ru-cdn.ultima.foundation
+    port: 443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: ozon.ru
+    client-fingerprint: edge
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+
+  - name: "🇷🇺 #5 Озон IO — LTE"
+    type: vless
+    server: ru-cdn.ultima.foundation
+    port: 1443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: io.ozone.ru
+    client-fingerprint: qq
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+
+  - name: "🇷🇺 #6 ВК EH — LTE"
+    type: vless
+    server: ru-cdn.ultima.foundation
+    port: 2443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: eh.vk.com
+    client-fingerprint: qq
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+
+  - name: "🇷🇺 #7 ВК Мобайл — LTE"
+    type: vless
+    server: ru-cdn.ultima.foundation
+    port: 3443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: m.vk.ru
+    client-fingerprint: edge
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+      short-id: a9725715bf4c62ff
+
+  - name: "🇷🇺 #8 ВК Статс — LTE"
+    type: vless
+    server: ru-cdn.ultima.foundation
+    port: 4443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: stats.vk-portal.net
+    client-fingerprint: qq
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+      short-id: a9725715bf4c62ff
+
+  - name: "🇩🇪 #9 Макс — LTE"
+    type: vless
+    server: de-cdn.ultima.foundation
+    port: 443
+    uuid: 5fd79470-5d1d-4c35-ae71-0575064de69d
+    network: tcp
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: web.max.ru
+    client-fingerprint: qq
+    reality-opts:
+      public-key: FcZ6-LZS5HHqAJ8YwFV_Gu_WxrMuylqxYjBu-1CLVRI
+
+proxy-groups:
+  - name: "🐷 Сало Коннект — Авто"
+    type: url-test
+    proxies:
+      - "🇪🇺 #1 Яндекс — ⚡ LTE"
+      - "🇪🇺 #2 Пятёрочка — ⚡ LTE"
+      - "🇪🇺 #3 ВК Клауд — LTE"
+      - "🇷🇺 #4 Озон — LTE"
+      - "🇷🇺 #5 Озон IO — LTE"
+      - "🇷🇺 #6 ВК EH — LTE"
+      - "🇷🇺 #7 ВК Мобайл — LTE"
+      - "🇷🇺 #8 ВК Статс — LTE"
+      - "🇩🇪 #9 Макс — LTE"
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    lazy: true
+
+  - name: "🐷 Сало Коннект — Резерв"
+    type: fallback
+    proxies:
+      - "🇪🇺 #1 Яндекс — ⚡ LTE"
+      - "🇷🇺 #4 Озон — LTE"
+      - "🇷🇺 #7 ВК Мобайл — LTE"
+      - "🇩🇪 #9 Макс — LTE"
+    url: http://www.gstatic.com/generate_204
+    interval: 120
+
+  - name: "🐷 Сало Коннект — Ручной"
+    type: select
+    proxies:
+      - "🐷 Сало Коннект — Авто"
+      - "🐷 Сало Коннект — Резерв"
+      - "🇪🇺 #1 Яндекс — ⚡ LTE"
+      - "🇪🇺 #2 Пятёрочка — ⚡ LTE"
+      - "🇪🇺 #3 ВК Клауд — LTE"
+      - "🇷🇺 #4 Озон — LTE"
+      - "🇷🇺 #5 Озон IO — LTE"
+      - "🇷🇺 #6 ВК EH — LTE"
+      - "🇷🇺 #7 ВК Мобайл — LTE"
+      - "🇷🇺 #8 ВК Статс — LTE"
+      - "🇩🇪 #9 Макс — LTE"
+      - DIRECT
+
+  - name: "🐷 Сало Коннект"
+    type: select
+    proxies:
+      - "🐷 Сало Коннект — Авто"
+      - "🐷 Сало Коннект — Резерв"
+      - "🐷 Сало Коннект — Ручной"
+      - DIRECT
+
+rules:
+  - DOMAIN-SUFFIX,yandex.ru,DIRECT
+  - DOMAIN-SUFFIX,yandex.net,DIRECT
+  - DOMAIN-SUFFIX,ya.ru,DIRECT
+  - DOMAIN-SUFFIX,vk.com,DIRECT
+  - DOMAIN-SUFFIX,vk.ru,DIRECT
+  - DOMAIN-SUFFIX,ok.ru,DIRECT
+  - DOMAIN-SUFFIX,ozon.ru,DIRECT
+  - DOMAIN-SUFFIX,wildberries.ru,DIRECT
+  - DOMAIN-SUFFIX,sberbank.ru,DIRECT
+  - DOMAIN-SUFFIX,gosuslugi.ru,DIRECT
+  - DOMAIN-SUFFIX,mail.ru,DIRECT
+  - DOMAIN-SUFFIX,avito.ru,DIRECT
+  - DOMAIN-SUFFIX,t.me,DIRECT
+  - DOMAIN-SUFFIX,telegram.me,DIRECT
+  - DOMAIN-SUFFIX,apple.com,DIRECT
+  - DOMAIN-SUFFIX,icloud.com,DIRECT
+  - GEOIP,RU,DIRECT
+  - GEOIP,LAN,DIRECT
+  - MATCH,🐷 Сало Коннект
