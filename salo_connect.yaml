@@ -159,7 +159,7 @@ proxy-groups:
   - name: "🐖 Сало Коннект"
     type: select
     proxies:
-      - "SaloConnect"
+      - SaloConnect
 
   - name: "🐖 Авто"
     type: url-test
